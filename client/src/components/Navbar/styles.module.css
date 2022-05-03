@@ -26,3 +26,7 @@
 .link:hover{
     color: black ;
 }
+
+.menuItem{
+    margin: 0 16px;
+}

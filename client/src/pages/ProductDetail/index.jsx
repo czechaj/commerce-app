@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text, Image, Center, Heading, Button } from "@chakra-ui/react";
+import { Box, Text, Image, Center, Heading, Button, Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProductDetail } from "../../api";
@@ -12,7 +12,16 @@ function Product() {
   );
 
   if (isLoading) {
-    return "Loading";
+    return (<Center mt={100}>
+      <Spinner
+      thickness='4px'
+      speed='0.65s'
+      emptyColor='gray.200'
+      color='blue.500'
+      size='xl'
+    />
+
+    </Center>);
   }
 
   if (error) {

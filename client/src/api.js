@@ -16,3 +16,21 @@ export const signUserUp = async (values) => {
   );
   return data;
 };
+export const signUserIn = async (values) => {
+  const body = values;
+  const { data } = await axios.post(
+    `http://localhost:4000/auth/login`,
+    body
+  );
+  return data;
+};
+/* 
+export const signUserOut = async (values) => {
+  const body = values;
+  const { data } = await axios.post(
+    `http://localhost:4000/auth/logout`,
+    body
+  );
+  return data;
+};
+ */

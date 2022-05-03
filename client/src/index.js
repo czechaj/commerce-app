@@ -7,6 +7,7 @@ import App from "./App";
 // import "antd/dist/antd.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 
 const container = document.getElementById("root");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
@@ -21,11 +22,13 @@ const queryClient = new QueryClient({
 
 root.render(
   <QueryClientProvider client={queryClient}>
-    <ChakraProvider>
-      <BrowserRouter>
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </BrowserRouter>
-    </ChakraProvider>
+    <AuthProvider>
+      <ChakraProvider>
+        <BrowserRouter>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </BrowserRouter>
+      </ChakraProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );

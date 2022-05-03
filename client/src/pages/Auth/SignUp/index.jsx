@@ -38,7 +38,7 @@ function SignUp() {
 
   return (
     <div>
-      <Flex  justify={"center"}>
+      <Flex justify={"center"}>
        <Box pt={10}> <Box>
           <Heading my={10}>Sign Up</Heading>
         </Box>
