@@ -46,13 +46,14 @@ function Product() {
             mt={20}
             mx={20}
             display={"plex"}
-            justifyContent={"space-between"}
+            justifyContent={"end"}
+            alignItems={"center"}
           >
-            <Text fontSize={12} fontWeight={"bold"}>
+            <Text fontSize={12}  fontWeight={"bold"}>
               {" "}
               ${data.price}{" "}
             </Text>
-            <Button colorScheme={"teal"}>Add to basket!</Button>
+            <Button ml={5} colorScheme={"teal"}>Add to basket!</Button>
           </Box>
         </Box>
       </Center>

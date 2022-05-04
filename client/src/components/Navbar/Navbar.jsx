@@ -1,11 +1,19 @@
 import React from "react";
 import styles from "./styles.module.css";
-import { Router, Routes, Route, Link } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { useAuth } from "../../context/AuthContext";
 import Logo from "./logo.png";
+
 function Navbar() {
+  const navigate = useNavigate()
+
   const { isLoggedIn } = useAuth();
+  const { logout } = useAuth()
+  const handleLogout = async() => {
+    logout()
+    navigate('/login')
+  }
 
   return (
     <div>
@@ -51,11 +59,10 @@ function Navbar() {
                 <Button colorScheme="teal"> Sign Up</Button>
               </Link>
             </div>
-          ) : (<Link className={styles.link} to="/signup">
-           
-           TODO
-           <Button colorScheme="purple" variant={"link"}> Sign Out</Button>
-        </Link>) }
+          ) : ( 
+            /* TODO */
+           <Button colorScheme="purple" variant={"link"} onClick={handleLogout}> Sign Out</Button>
+        ) }
            
         </div>
       </nav>

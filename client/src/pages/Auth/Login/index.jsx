@@ -1,9 +1,9 @@
 import React from "react";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import { useAuth } from "../../../context/AuthContext";
 import {
-  Center,
   Box,
   Heading,
   Input,
@@ -18,7 +18,9 @@ import validations from "./validation";
 import { signUserIn } from "../../../api";
 
 function Login() {
-  const { setIsLoggedIn, setUser, user, login } = useAuth();
+  const navigate = useNavigate();
+
+  const { login } = useAuth();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -27,15 +29,15 @@ function Login() {
     validationSchema: validations,
     onSubmit: async (values, bag) => {
       try {
-        const registerRes = await signUserIn(values);
-
+        const registerRes = await signUserIn({
+          password: values.password,
+          email: values.email,
+        });
         console.log(registerRes);
-        setUser(registerRes.user)
-        setIsLoggedIn(true)
-        console.log(user)
-        localStorage.setItem("user", user)
+        login(registerRes);
+        navigate("/profile");
       } catch (e) {
-        console.log(e)
+        console.log(e);
         bag.setErrors({ error: e.response.data.message });
       }
     },
@@ -99,7 +101,7 @@ function Login() {
             </form>
           </Box>
           <Link to="/signup">
-            <Text fontWeight={"bold"}>Don't have an account yet? Sign up</Text>
+            <Text fontWeight={"bold"} fontSize={11} >Don't have an account yet? Sign up</Text>
           </Link>
         </Box>
       </Flex>

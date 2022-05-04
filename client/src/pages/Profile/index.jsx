@@ -4,7 +4,6 @@ import { useAuth } from "../../context/AuthContext";
 
 function Profile() {
   const { user } = useAuth();
-  console.log(user);
   return (
     <div>
       {user && (
@@ -17,6 +16,7 @@ function Profile() {
             {" "}
             Role: <Code>{user.role}</Code>
           </Box>
+          {/*   <code>{JSON.stringify(user)}</code> */}
         </>
       )}
     </div>
