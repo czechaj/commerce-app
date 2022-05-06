@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 import React from "react";
-import axios from "axios";
-import { Box, Center, Grid, GridItem, Spinner } from "@chakra-ui/react";
+import { Center, Grid, Spinner } from "@chakra-ui/react";
 import Card from "../../components/Card";
 import { getProductList } from "../../api";
 
@@ -9,17 +8,17 @@ function Products() {
   const { isLoading, error, data } = useQuery("products", getProductList);
 
   if (isLoading) {
-    return (<Center mt={100}>
-      <Spinner
-      thickness='4px'
-      speed='0.65s'
-      emptyColor='gray.200'
-      color='blue.500'
-      size='xl'
-    />
-
-    </Center>
-      );
+    return (
+      <Center mt={100}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </Center>
+    );
   }
 
   if (error) {

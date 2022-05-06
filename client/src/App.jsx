@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Profile from "./pages/Profile";
+import Box from "./pages/Box";
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute />}>
           <Route exact path="/profile" element={<Profile />} />
         </Route>
+        <Route path="/box" element={<Box />} />
 
         {/* <Route path="/users" element={<Users />}>
           <Route path=":id" element={<User />} />

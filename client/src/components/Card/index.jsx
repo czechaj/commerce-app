@@ -1,8 +1,12 @@
 import React from "react";
 import { Box, Center, Text, Image, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useBox } from "../../context/BoxContext";
 
 function Card({ item }) {
+  const { items, addItem } = useBox();
+  const itemInBasket = items.find((i) => i._id === item._id);
+
   return (
     <div>
       <Box
@@ -24,8 +28,15 @@ function Card({ item }) {
         </Link>
 
         <Link to="#">
-          <Button colorScheme={"teal"} variant={"outline"} mt={5}>
-            Add to basket
+          <Button
+            colorScheme={itemInBasket ? "red" : "teal"}
+            variant={"outline"}
+            mt={5}
+            onClick={() => {
+              addItem(item, itemInBasket);
+            }}
+          >
+            {itemInBasket ? "Remove from box" : "Add to box"}
           </Button>
         </Link>
       </Box>

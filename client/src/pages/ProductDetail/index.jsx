@@ -1,34 +1,43 @@
 import React from "react";
-import { Box, Text, Image, Center, Heading, Button, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Image,
+  Center,
+  Heading,
+  Button,
+  Spinner,
+} from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProductDetail } from "../../api";
+import { useBox } from "../../context/BoxContext";
 
 function Product() {
   const { id } = useParams();
-
   const { isLoading, error, data } = useQuery(["products", id], () =>
     getProductDetail(id)
   );
+  const { items, addItem } = useBox();
+  const itemInBasket = items.find((item) => item._id === id);
 
   if (isLoading) {
-    return (<Center mt={100}>
-      <Spinner
-      thickness='4px'
-      speed='0.65s'
-      emptyColor='gray.200'
-      color='blue.500'
-      size='xl'
-    />
-
-    </Center>);
+    return (
+      <Center mt={100}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </Center>
+    );
   }
 
   if (error) {
     return "An error has occurred";
   }
-
-  console.log(data);
 
   return (
     <div>
@@ -39,7 +48,7 @@ function Product() {
             <Image mt={7} src={data.image} align="center" maxH={500} />
           </Center>
 
-          <Text mt={5} mx={20}>
+          <Text padding={5} border={"1px"} borderRadius={30} mt={5} mx={20}>
             {data.description}
           </Text>
           <Box
@@ -49,11 +58,20 @@ function Product() {
             justifyContent={"end"}
             alignItems={"center"}
           >
-            <Text fontSize={12}  fontWeight={"bold"}>
+            <Text fontSize={12} fontWeight={"bold"}>
               {" "}
               ${data.price}{" "}
             </Text>
-            <Button ml={5} colorScheme={"teal"}>Add to basket!</Button>
+            <Button
+              ml={5}
+              colorScheme={itemInBasket ? "red" : "teal"}
+              value={data._id}
+              onClick={() => {
+                addItem(data, itemInBasket);
+              }}
+            >
+              {itemInBasket ? "Remove from box" : "Add to box!"}
+            </Button>
           </Box>
         </Box>
       </Center>

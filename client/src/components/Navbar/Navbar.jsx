@@ -1,19 +1,20 @@
 import React from "react";
 import styles from "./styles.module.css";
-import {Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { useAuth } from "../../context/AuthContext";
 import Logo from "./logo.png";
+import { useBox } from "../../context/BoxContext";
 
 function Navbar() {
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  const { items } = useBox();
   const { isLoggedIn } = useAuth();
-  const { logout } = useAuth()
-  const handleLogout = async() => {
-    logout()
-    navigate('/login')
-  }
+  const { logout } = useAuth();
+  const handleLogout = async () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <div>
@@ -25,7 +26,7 @@ function Navbar() {
               <img
                 src={Logo}
                 style={{ width: "60px", height: " 60px" }}
-                alt="lsö"
+                alt="Logo"
               />
             </Link>
           </div>
@@ -36,11 +37,20 @@ function Navbar() {
               </Link>
             </li>
             {isLoggedIn && (
-              <li className={styles.menuItem}>
-                <Link className={styles.link} to="profile">
-                  <span style={{ fontWeight: "bold" }}>Profile</span>
-                </Link>
-              </li>
+              <>
+                <li className={styles.menuItem}>
+                  <Link className={styles.link} to="profile">
+                    <span style={{ fontWeight: "bold" }}>Profile</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/box">
+                    <Button colorScheme={"teal"} style={{ fontWeight: "bold" }}>
+                      Box ({items && items.length})
+                    </Button>
+                  </Link>
+                </li>
+              </>
             )}
           </ul>
         </div>
@@ -59,11 +69,16 @@ function Navbar() {
                 <Button colorScheme="teal"> Sign Up</Button>
               </Link>
             </div>
-          ) : ( 
-            /* TODO */
-           <Button colorScheme="purple" variant={"link"} onClick={handleLogout}> Sign Out</Button>
-        ) }
-           
+          ) : (
+            <Button
+              colorScheme="purple"
+              variant={"link"}
+              onClick={handleLogout}
+            >
+              {" "}
+              Sign Out
+            </Button>
+          )}
         </div>
       </nav>
     </div>
