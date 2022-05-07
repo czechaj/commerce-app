@@ -8,6 +8,8 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Profile from "./pages/Profile";
 import Box from "./pages/Box";
+import Error from "./pages/Error";
+import Admin from "./pages/Admin";
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 
 function App() {
@@ -22,10 +24,35 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/profile" element={<ProtectedRoute />}>
-          <Route exact path="/profile" element={<Profile />} />
-        </Route>
-        <Route path="/box" element={<Box />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Profile />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/box"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Box />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Admin admin={true} />{" "}
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="*" element={<Error />} />
 
         {/* <Route path="/users" element={<Users />}>
           <Route path=":id" element={<User />} />

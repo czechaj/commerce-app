@@ -33,7 +33,6 @@ function Login() {
           password: values.password,
           email: values.email,
         });
-        console.log(registerRes);
         login(registerRes);
         navigate("/profile");
       } catch (e) {
@@ -101,7 +100,9 @@ function Login() {
             </form>
           </Box>
           <Link to="/signup">
-            <Text fontWeight={"bold"} fontSize={11} >Don't have an account yet? Sign up</Text>
+            <Text fontWeight={"bold"} fontSize={11}>
+              Don't have an account yet? Sign up
+            </Text>
           </Link>
         </Box>
       </Flex>

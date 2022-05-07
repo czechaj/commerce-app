@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@chakra-ui/react";
+import { Button, Box, Text } from "@chakra-ui/react";
 import { useAuth } from "../../context/AuthContext";
 import Logo from "./logo.png";
 import { useBox } from "../../context/BoxContext";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { items } = useBox();
-  const { isLoggedIn } = useAuth();
+  const { items, warning } = useBox();
+  const { isLoggedIn, user } = useAuth();
   const { logout } = useAuth();
   const handleLogout = async () => {
     logout();
@@ -36,7 +36,17 @@ function Navbar() {
                 <span style={{ fontWeight: "bold" }}>Products</span>
               </Link>
             </li>
-            {isLoggedIn && (
+            {warning && (
+              <Text
+                ml={10}
+                textColor={"chocolate"}
+                fontSize={10}
+                fontWeight={"bold"}
+              >
+                {warning}
+              </Text>
+            )}
+            {isLoggedIn && user.role === "user" && (
               <>
                 <li className={styles.menuItem}>
                   <Link className={styles.link} to="profile">
@@ -52,11 +62,26 @@ function Navbar() {
                 </li>
               </>
             )}
+            {isLoggedIn && user.role === "admin" && (
+              <>
+                <li className={styles.menuItem}>
+                  <Link className={styles.link} to="admin">
+                    <Button
+                      bg={"GrayText"}
+                      colorScheme={"white"}
+                      style={{ fontWeight: "bold" }}
+                    >
+                      Admin
+                    </Button>
+                  </Link>
+                </li>{" "}
+              </>
+            )}
           </ul>
         </div>
 
         <div className={styles.right}>
-          {!isLoggedIn ? (
+          {!isLoggedIn && (
             <div className="">
               <Link className={styles.link} to="/login">
                 <Button colorScheme="teal" mr={2}>
@@ -69,7 +94,9 @@ function Navbar() {
                 <Button colorScheme="teal"> Sign Up</Button>
               </Link>
             </div>
-          ) : (
+          )}
+
+          {isLoggedIn && (
             <Button
               colorScheme="purple"
               variant={"link"}

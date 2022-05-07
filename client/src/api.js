@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 axios.interceptors.request.use(
   function (config) {
     const { origin } = new URL(config.url);
@@ -17,14 +18,21 @@ axios.interceptors.request.use(
   }
 );
 
-export const getProductList = async () => {
-  const { data } = await axios.get(`http://localhost:4000/product`);
+export const getProductList = async ({ pageParam = 1}) => {
+  const { data } = await axios.get(`http://localhost:4000/product?page=${pageParam}`);
   return data;
 };
+ 
 export const getProductDetail = async (id) => {
   const { data } = await axios.get(`http://localhost:4000/product/${id}`);
   return data;
 };
+
+export const deleteProduct = async (id) => {
+  const { data } = await axios.delete(`http://localhost:4000/product/${id}`);
+  return data;
+};
+
 export const signUserUp = async (values) => {
   const body = values;
   const { data } = await axios.post(
@@ -50,3 +58,14 @@ export const isUser = async () => {
   const { data } = await axios.get(`http://localhost:4000/auth/me`);
   return data;
 };
+
+export const postOrder = async (input) => {
+  const { data } = await axios.post(`http://localhost:4000/order`, input);
+  return data;
+};
+
+export const getOrderList = async () => {
+  const { data } = await axios.get(`http://localhost:4000/order`);
+  return data;
+};
+

@@ -68,7 +68,7 @@ const Delete = async (req, res, next) => {
 	}
 };
 
-const limit = 20;
+const limit = 8;
 const GetList = async (req, res, next) => {
 	let { page } = req.query;
 
@@ -80,7 +80,6 @@ const GetList = async (req, res, next) => {
 
 	try {
 		const products = await Product.find({})
-			.sort({ createdAt: -1 })
 			.skip(skip)
 			.limit(limit);
 

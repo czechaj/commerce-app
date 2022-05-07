@@ -5,8 +5,12 @@
     border-bottom: 2px solid rgb(255, 255, 210);
     padding: 15px;
     align-items: center;
+
 }
-.nav .left{
+
+ 
+
+.nav .left {
     display: flex;
     margin-left: 20px;
     align-items: center;
@@ -20,14 +24,14 @@
 }
 
 .nav .right {
-    margin-right: 20px;    
+    margin-right: 20px;
 }
 
 
-.link:hover{
-    color: black ;
+.link:hover {
+    color: black;
 }
 
-.menuItem{
+.menuItem {
     margin: 0 16px;
 }

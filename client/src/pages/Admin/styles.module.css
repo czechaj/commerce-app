@@ -1,0 +1,8 @@
+.navigator {
+    background-color: #FFF6EA;
+    font-weight: bolder;
+    justify-content: space-evenly;
+    display: flex;
+    list-style: none;
+    margin-top: 1vh;
+}

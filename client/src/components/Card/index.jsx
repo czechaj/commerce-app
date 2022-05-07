@@ -2,16 +2,18 @@ import React from "react";
 import { Box, Center, Text, Image, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useBox } from "../../context/BoxContext";
+import { useAuth } from "../../context/AuthContext";
 
 function Card({ item }) {
+  const { user } = useAuth();
   const { items, addItem } = useBox();
   const itemInBasket = items.find((i) => i._id === item._id);
-
   return (
     <div>
       <Box
         p={6}
         m={4}
+        h={"44vh"}
         borderWidth={"1px"}
         borderRadius={"lg"}
         overflow="hidden"
@@ -23,22 +25,24 @@ function Card({ item }) {
           </Center>
           <Box display={"flex"} justifyContent={"space-between"} mt={7}>
             <Text>{item.title} </Text>
-            <Text fontWeight={"bold"}>{item.price}₺</Text>
+            <Text fontWeight={"bold"}>${item.price}</Text>
           </Box>
         </Link>
 
-        <Link to="#">
-          <Button
-            colorScheme={itemInBasket ? "red" : "teal"}
-            variant={"outline"}
-            mt={5}
-            onClick={() => {
-              addItem(item, itemInBasket);
-            }}
-          >
-            {itemInBasket ? "Remove from box" : "Add to box"}
-          </Button>
-        </Link>
+        {user?.role !== "admin" && (
+          <Link to="#">
+            <Button
+              colorScheme={itemInBasket ? "red" : "teal"}
+              variant={"outline"}
+              mt={5}
+              onClick={() => {
+                addItem(item, itemInBasket);
+              }}
+            >
+              {itemInBasket ? "Remove from box" : "Add to box"}
+            </Button>
+          </Link>
+        )}
       </Box>
     </div>
   );

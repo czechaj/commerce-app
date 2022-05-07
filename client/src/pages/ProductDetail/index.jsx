@@ -6,6 +6,7 @@ import {
   Center,
   Heading,
   Button,
+  Alert,
   Spinner,
 } from "@chakra-ui/react";
 import { useQuery } from "react-query";
@@ -18,7 +19,7 @@ function Product() {
   const { isLoading, error, data } = useQuery(["products", id], () =>
     getProductDetail(id)
   );
-  const { items, addItem } = useBox();
+  const { warning, items, addItem } = useBox();
   const itemInBasket = items.find((item) => item._id === id);
 
   if (isLoading) {
